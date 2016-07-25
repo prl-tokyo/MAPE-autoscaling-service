@@ -16,12 +16,12 @@ public class DeploymentDTO {
 		return instances;
 	}
 
-	public void setInstances(List<InstanceDTO> instances) {
-		this.instances = instances;
-	}
-
 	public List<InstanceTypeDTO> getInstanceTypes() {
 		return instanceTypes;
+	}
+
+	public void setInstances(List<InstanceDTO> instances) {
+		this.instances = instances;
 	}
 
 	public void setInstanceTypes(List<InstanceTypeDTO> instanceTypes) {
