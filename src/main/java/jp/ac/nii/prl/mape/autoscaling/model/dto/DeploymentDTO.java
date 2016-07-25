@@ -2,10 +2,14 @@ package jp.ac.nii.prl.mape.autoscaling.model.dto;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class DeploymentDTO {
 	
+	@NotEmpty
 	private List<InstanceDTO> instances;
 	
+	@NotEmpty
 	private List<InstanceTypeDTO> instanceTypes;
 
 	public List<InstanceDTO> getInstances() {
