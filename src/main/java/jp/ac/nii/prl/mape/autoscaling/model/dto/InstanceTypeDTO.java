@@ -1,10 +1,12 @@
 package jp.ac.nii.prl.mape.autoscaling.model.dto;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+@Entity
 public class InstanceTypeDTO {
 
 	@NotEmpty
