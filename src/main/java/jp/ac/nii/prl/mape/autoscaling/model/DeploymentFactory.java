@@ -31,9 +31,13 @@ public class DeploymentFactory {
 		
 		List<InstanceType> instanceTypes = new ArrayList<>();
 		for(InstanceTypeDTO itDto:dto.getInstanceTypes()) {
-			instanceTypes.add(InstanceTypeFactory.createInstanceType(itDto, 
-					deployment, 
-					instByType.get(itDto.getTypeID())));
+			List<Instance> linkedInstances = instByType.get(itDto.getTypeID());
+			InstanceType instanceType = InstanceTypeFactory.createInstanceType(itDto, 
+					deployment, linkedInstances);
+			instanceTypes.add(instanceType);
+			for (Instance linkedInstance:linkedInstances) {
+				linkedInstance.setInstanceType(instanceType);
+			}
 		}
 		deployment.setInstanceTypes(instanceTypes);
 		
