@@ -10,6 +10,7 @@ public class InstanceFactory {
 		
 		instance.setInstID(dto.getInstID());
 		instance.setDeployment(deployment);
+		instance.setInstLoad(dto.getInstLoad());
 		
 		return instance;
 	}
