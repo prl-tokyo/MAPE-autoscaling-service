@@ -2,11 +2,8 @@ package jp.ac.nii.prl.mape.autoscaling.model.dto;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-
 import org.hibernate.validator.constraints.NotEmpty;
 
-@Entity
 public class DeploymentDTO {
 	
 	@NotEmpty
