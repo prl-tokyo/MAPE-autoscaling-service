@@ -12,6 +12,8 @@ import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceTypeDTO;
 public class DeploymentFactory {
 	
 	public static Deployment createDeployment(DeploymentDTO dto) {
+		assert(dto != null);
+		
 		Deployment deployment = new Deployment();
 		
 		List<Instance> instances = new ArrayList<>();
@@ -45,6 +47,8 @@ public class DeploymentFactory {
 	}
 	
 	public static DeploymentDTO createDTO(Deployment deployment) {
+		assert(deployment != null);
+		
 		DeploymentDTO dto = new DeploymentDTO();
 		
 		List<InstanceDTO> instanceDTOs = new ArrayList<>();

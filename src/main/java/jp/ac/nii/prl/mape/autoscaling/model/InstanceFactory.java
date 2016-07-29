@@ -5,6 +5,7 @@ import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceDTO;
 public class InstanceFactory {
 	
 	public static Instance createInstance(InstanceDTO dto, Deployment deployment) {
+		assert(dto != null && deployment != null);
 		
 		Instance instance = new Instance();
 		
@@ -18,6 +19,7 @@ public class InstanceFactory {
 	public static Instance createInstance(InstanceDTO dto, 
 			Deployment deployment,
 			InstanceType instanceType) {
+		assert(dto != null && deployment != null && instanceType != null);
 		
 		Instance instance = createInstance(dto, deployment);
 		instance.setInstanceType(instanceType);
@@ -26,6 +28,7 @@ public class InstanceFactory {
 	}
 	
 	public static InstanceDTO createDTO(Instance instance) {
+		assert(instance != null);
 		
 		InstanceDTO dto = new InstanceDTO();
 		

@@ -9,6 +9,7 @@ public class InstanceTypeFactory {
 	public static InstanceType createInstanceType(InstanceTypeDTO dto, 
 			Deployment deployment, 
 			List<Instance> instances) {
+		assert(dto != null && deployment != null && instances != null);
 		
 		InstanceType instanceType = new InstanceType();
 		
@@ -23,6 +24,7 @@ public class InstanceTypeFactory {
 	}
 	
 	public static InstanceTypeDTO createDTO(InstanceType instanceType) {
+		assert(instanceType != null);
 		
 		InstanceTypeDTO dto = new InstanceTypeDTO();
 		

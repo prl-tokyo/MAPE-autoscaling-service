@@ -16,11 +16,15 @@ public class DeploymentServiceImpl implements DeploymentService {
 	
 	@Override
 	public Deployment save(Deployment deployment) {
+		assert(deployment != null);
+		
 		return deploymentRepository.save(deployment);
 	}
 	
 	@Override
 	public Optional<Deployment> findById(Long deploymentId) {
+		assert(deploymentId != null);
+		
 		return deploymentRepository.findById(deploymentId);
 	}
 
