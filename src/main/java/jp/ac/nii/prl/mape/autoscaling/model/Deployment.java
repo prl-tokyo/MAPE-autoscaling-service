@@ -64,4 +64,22 @@ public class Deployment {
 	public void setInstanceTypes(List<InstanceType> instanceTypes) {
 		this.instanceTypes = instanceTypes;
 	}
+
+	public double getAverageLoad() {
+		int n = 0;
+		double x = 0;
+		for (Instance inst:instances) {
+			x += inst.getInstLoad();
+			n += inst.getInstanceType().getTypeCPUs();
+		}
+		return x / n;
+	}
+
+	public int getNumberCPUs() {
+		int cpus = 0;
+		for (Instance inst:instances)
+			cpus += inst.getInstanceType().getTypeCPUs();
+		
+		return cpus;
+	}
 }
