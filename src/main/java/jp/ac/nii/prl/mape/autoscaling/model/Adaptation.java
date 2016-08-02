@@ -3,6 +3,7 @@ package jp.ac.nii.prl.mape.autoscaling.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,10 +23,18 @@ public class Adaptation {
 	@Min(0)
 	private int cpuCount;
 	
+	@JsonIgnore
+	@OneToOne
+	private Deployment deployment;
+	
 	public int getCpuCount() {
 		return cpuCount;
 	}
-	
+
+	public Deployment getDeployment() {
+		return deployment;
+	}
+
 	public boolean isAdapt() {
 		return adapt;
 	}
@@ -40,6 +49,10 @@ public class Adaptation {
 	
 	public void setCpuCount(int cpuCount) {
 		this.cpuCount = cpuCount;
+	}
+	
+	public void setDeployment(Deployment deployment) {
+		this.deployment = deployment;
 	}
 	
 	public void setUp(boolean up) {
