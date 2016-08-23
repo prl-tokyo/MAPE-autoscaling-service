@@ -31,7 +31,15 @@ public class AutoscalingController {
 	@Autowired
 	private DeploymentService deploymentService;
 	
-	@RequestMapping(method= RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.POST)
+	public DeploymentDTO analyse(@RequestBody DeploymentDTO deploymentDTO) {
+		logger.info("Analysing deployment with " + deploymentDTO.getInstances().size() + " instances");
+		
+		logger.info("Analysis completed");
+		return deploymentDTO;
+	}
+	
+	@RequestMapping(value="/create", method= RequestMethod.POST)
 	public ResponseEntity<?> createDeployment(@RequestBody DeploymentDTO deploymentDTO) {
 		Deployment deployment = DeploymentFactory.createDeployment(deploymentDTO);
 		deploymentService.save(deployment);

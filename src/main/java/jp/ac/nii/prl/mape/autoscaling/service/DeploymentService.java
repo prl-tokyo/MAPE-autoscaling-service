@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import jp.ac.nii.prl.mape.autoscaling.model.Adaptation;
 import jp.ac.nii.prl.mape.autoscaling.model.Deployment;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.DeploymentDTO;
 
 public interface DeploymentService {
 	
@@ -12,5 +13,7 @@ public interface DeploymentService {
 	Optional<Deployment> findById(Long deploymentId);
 	
 	Adaptation analyse(Deployment deployment);
+	
+	DeploymentDTO analyse(DeploymentDTO deployment);
 
 }

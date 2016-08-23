@@ -1,6 +1,7 @@
 package jp.ac.nii.prl.mape.autoscaling.service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import jp.ac.nii.prl.mape.autoscaling.model.Adaptation;
 import jp.ac.nii.prl.mape.autoscaling.model.Deployment;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.DeploymentDTO;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceDTO;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceTypeDTO;
 import jp.ac.nii.prl.mape.autoscaling.properties.AnalysisProperties;
 import jp.ac.nii.prl.mape.autoscaling.repository.DeploymentRepository;
 
@@ -70,6 +74,38 @@ public class DeploymentServiceImpl implements DeploymentService {
 			adaptation.setAdapt(false);
 		}
 		return adaptation;
+	}
+
+	@Override
+	public DeploymentDTO analyse(DeploymentDTO deployment) {
+		double avg = getWeightedAvgCpuUsage(deployment);
+		if (avg > 80) {
+			InstanceDTO newInst = new InstanceDTO();
+			newInst.setInstID(UUID.randomUUID().toString());
+			newInst.setInstLoad(0.0);
+			newInst.setInstType(deployment.getInstances().get(0).getInstType());
+		} else if (avg < 40) {
+			deployment.getInstances().remove(0);
+		}
+		return deployment;
+	}
+	
+	private double getWeightedAvgCpuUsage(DeploymentDTO deployment) {
+		double total = 0F;
+		int cpus = 0;
+		for (InstanceDTO instance:deployment.getInstances()) {
+			total += instance.getInstLoad();
+			cpus += getCpuCount(deployment, instance.getInstType());
+		}
+		return total / cpus;
+	}
+	
+	private int getCpuCount(DeploymentDTO deployment, String type) {
+		for (InstanceTypeDTO instType:deployment.getInstanceTypes()) {
+			if (instType.getTypeID().equals(type))
+				return instType.getTypeCPUs();
+		}
+		return 0;
 	}
 
 }
