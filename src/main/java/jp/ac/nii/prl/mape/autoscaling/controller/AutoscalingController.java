@@ -34,7 +34,7 @@ public class AutoscalingController {
 	@RequestMapping(method=RequestMethod.POST)
 	public DeploymentDTO analyse(@RequestBody DeploymentDTO deploymentDTO) {
 		logger.info("Analysing deployment with " + deploymentDTO.getInstances().size() + " instances");
-		
+		deploymentService.analyse(deploymentDTO);
 		logger.info("Analysis completed");
 		return deploymentDTO;
 	}
