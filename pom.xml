@@ -79,6 +79,9 @@
 						</reports>
 					</reportSet>
 				</reportSets>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                </configuration>
 			</plugin>
 		</plugins>
 	</reporting>
