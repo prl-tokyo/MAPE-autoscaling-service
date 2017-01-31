@@ -5,6 +5,6 @@ import jp.ac.nii.prl.mape.autoscaling.model.Deployment;
 
 public interface PlanningService {
 
-	public Deployment plan(final Deployment deployment, final Adaptation adaptation);
+	Deployment plan(final Deployment deployment, final Adaptation adaptation);
 	
 }

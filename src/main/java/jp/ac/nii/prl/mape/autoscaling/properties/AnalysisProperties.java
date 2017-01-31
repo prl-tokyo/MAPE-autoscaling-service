@@ -50,15 +50,15 @@ public class AnalysisProperties {
 		return scaleUp;
 	}
 
-	public void setMaxThreshold(Double maxThreshold) {
+	public void setMaxThreshold(final Double maxThreshold) {
 		this.maxThreshold = maxThreshold;
 	}
 
-	public void setMinThreshold(Double minThreshold) {
+	public void setMinThreshold(final Double minThreshold) {
 		this.minThreshold = minThreshold;
 	}
 
-	public void setScaleUp(Double scaleUp) {
+	public void setScaleUp(final Double scaleUp) {
 		this.scaleUp = scaleUp;
 	}
 }

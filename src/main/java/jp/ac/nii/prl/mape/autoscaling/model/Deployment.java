@@ -1,17 +1,14 @@
 package jp.ac.nii.prl.mape.autoscaling.model;
 
-import java.util.List;
-import java.util.Optional;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 
 @Entity
 public class Deployment {
@@ -77,9 +74,9 @@ public class Deployment {
 
 	public int getNumberCPUs() {
 		int cpus = 0;
-		for (Instance inst:instances)
+		for (Instance inst:instances) {
 			cpus += inst.getInstanceType().getTypeCPUs();
-		
+		}
 		return cpus;
 	}
 }

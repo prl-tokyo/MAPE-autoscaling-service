@@ -9,8 +9,9 @@ public class PlanningServiceImpl implements PlanningService {
 	public Deployment plan(final Deployment deployment, final Adaptation adaptation) {
 		assert(deployment != null && adaptation != null);
 		
-		if (!adaptation.isAdapt())
+		if (!adaptation.isAdapt()) {
 			return deployment;
+		}
 		return null;
 	}
 
