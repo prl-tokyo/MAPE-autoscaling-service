@@ -23,28 +23,28 @@ import jp.ac.nii.prl.mape.autoscaling.service.DeploymentService;
 
 @RestController
 @Component
-@RequestMapping(value="/autoscaling")
+@RequestMapping(value = "/autoscaling")
 public class AutoscalingController {
 
-	private static final Logger logger = LoggerFactory.getLogger(AutoscalingController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AutoscalingController.class);
 	
 	@Autowired
 	private DeploymentService deploymentService;
-	
-	@RequestMapping(method=RequestMethod.POST)
+
+	@RequestMapping(method = RequestMethod.POST)
 	public DeploymentDTO analyse(@RequestBody final DeploymentDTO deploymentDTO) {
-		logger.info("Analysing deployment with " + deploymentDTO.getInstances().size() + " instances");
+		LOG.info("Analysing deployment with " + deploymentDTO.getInstances().size() + " instances");
 		deploymentService.analyse(deploymentDTO);
-		logger.info("Analysis completed");
+		LOG.info("Analysis completed");
 		return deploymentDTO;
 	}
 	
-	@RequestMapping(value="/create", method= RequestMethod.POST)
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<?> createDeployment(@RequestBody final DeploymentDTO deploymentDTO) {
 		final Deployment deployment = DeploymentFactory.createDeployment(deploymentDTO);
 		deploymentService.save(deployment);
 		
-		logger.debug(String.format("Saved deployment with ID %s", deployment.getId()));
+		LOG.debug(String.format("Saved deployment with ID %s", deployment.getId()));
 		
 		final HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setLocation(ServletUriComponentsBuilder
@@ -53,12 +53,12 @@ public class AutoscalingController {
 		return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value="/{deploymentId}", method=RequestMethod.GET)
+	@RequestMapping(value = "/{deploymentId}", method = RequestMethod.GET)
 	public DeploymentDTO getDeployment(@PathVariable final long deploymentId) {
 		
 		final Optional<Deployment> deployment = deploymentService.findById(deploymentId);
 		if (!deployment.isPresent()) {
-			logger.error(String.format("No deployment found with id %s", deploymentId));
+			LOG.error(String.format("No deployment found with id %s", deploymentId));
 			throw new DeploymentNotFoundException(String.format("No deployment with ID %s", deploymentId));
 		}
 			
