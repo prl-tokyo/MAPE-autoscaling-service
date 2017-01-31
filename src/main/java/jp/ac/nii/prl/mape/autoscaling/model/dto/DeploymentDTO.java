@@ -20,11 +20,11 @@ public class DeploymentDTO {
 		return instanceTypes;
 	}
 
-	public void setInstances(List<InstanceDTO> instances) {
+	public void setInstances(final List<InstanceDTO> instances) {
 		this.instances = instances;
 	}
 
-	public void setInstanceTypes(List<InstanceTypeDTO> instanceTypes) {
+	public void setInstanceTypes(final List<InstanceTypeDTO> instanceTypes) {
 		this.instanceTypes = instanceTypes;
 	}
 

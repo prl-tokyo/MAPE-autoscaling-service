@@ -14,12 +14,12 @@ public class DeploymentFactory {
 	public static Deployment createDeployment(DeploymentDTO dto) {
 		assert(dto != null);
 		
-		Deployment deployment = new Deployment();
+		final Deployment deployment = new Deployment();
 		
-		List<Instance> instances = new ArrayList<>();
-		Map<String, List<Instance>> instByType = new HashMap<>();
+		final List<Instance> instances = new ArrayList<>();
+		final Map<String, List<Instance>> instByType = new HashMap<>();
 		for (InstanceDTO iDto:dto.getInstances()) {
-			Instance instance = InstanceFactory.createInstance(iDto, deployment);
+			final Instance instance = InstanceFactory.createInstance(iDto, deployment);
 			if (instByType.containsKey(iDto.getInstType()))
 				instByType.get(iDto.getInstType()).add(instance);
 			else {
@@ -31,7 +31,7 @@ public class DeploymentFactory {
 		}
 		deployment.setInstances(instances);
 		
-		List<InstanceType> instanceTypes = new ArrayList<>();
+		final List<InstanceType> instanceTypes = new ArrayList<>();
 		for(InstanceTypeDTO itDto:dto.getInstanceTypes()) {
 			List<Instance> linkedInstances = instByType.get(itDto.getTypeID());
 			InstanceType instanceType = InstanceTypeFactory.createInstanceType(itDto, 
@@ -46,17 +46,17 @@ public class DeploymentFactory {
 		return deployment;
 	}
 	
-	public static DeploymentDTO createDTO(Deployment deployment) {
+	public static DeploymentDTO createDTO(final Deployment deployment) {
 		assert(deployment != null);
 		
-		DeploymentDTO dto = new DeploymentDTO();
+		final DeploymentDTO dto = new DeploymentDTO();
 		
-		List<InstanceDTO> instanceDTOs = new ArrayList<>();
+		final List<InstanceDTO> instanceDTOs = new ArrayList<>();
 		for (Instance instance:deployment.getInstances())
 			instanceDTOs.add(InstanceFactory.createDTO(instance));
 		dto.setInstances(instanceDTOs);
 		
-		List<InstanceTypeDTO> instanceTypeDTOs = new ArrayList<>();
+		final List<InstanceTypeDTO> instanceTypeDTOs = new ArrayList<>();
 		for (InstanceType instanceType:deployment.getInstanceTypes())
 			instanceTypeDTOs.add(InstanceTypeFactory.createDTO(instanceType));
 		dto.setInstanceTypes(instanceTypeDTOs);

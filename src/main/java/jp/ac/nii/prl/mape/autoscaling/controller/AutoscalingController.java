@@ -32,7 +32,7 @@ public class AutoscalingController {
 	private DeploymentService deploymentService;
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public DeploymentDTO analyse(@RequestBody DeploymentDTO deploymentDTO) {
+	public DeploymentDTO analyse(@RequestBody final DeploymentDTO deploymentDTO) {
 		logger.info("Analysing deployment with " + deploymentDTO.getInstances().size() + " instances");
 		deploymentService.analyse(deploymentDTO);
 		logger.info("Analysis completed");
@@ -40,13 +40,13 @@ public class AutoscalingController {
 	}
 	
 	@RequestMapping(value="/create", method= RequestMethod.POST)
-	public ResponseEntity<?> createDeployment(@RequestBody DeploymentDTO deploymentDTO) {
-		Deployment deployment = DeploymentFactory.createDeployment(deploymentDTO);
+	public ResponseEntity<?> createDeployment(@RequestBody final DeploymentDTO deploymentDTO) {
+		final Deployment deployment = DeploymentFactory.createDeployment(deploymentDTO);
 		deploymentService.save(deployment);
 		
 		logger.debug(String.format("Saved deployment with ID %s", deployment.getId()));
 		
-		HttpHeaders httpHeaders = new HttpHeaders();
+		final HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setLocation(ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(deployment.getId()).toUri());
@@ -54,9 +54,9 @@ public class AutoscalingController {
 	}
 	
 	@RequestMapping(value="/{deploymentId}", method=RequestMethod.GET)
-	public DeploymentDTO getDeployment(@PathVariable long deploymentId) {
+	public DeploymentDTO getDeployment(@PathVariable final long deploymentId) {
 		
-		Optional<Deployment> deployment = deploymentService.findById(deploymentId);
+		final Optional<Deployment> deployment = deploymentService.findById(deploymentId);
 		if (!deployment.isPresent()) {
 			logger.error(String.format("No deployment found with id %s", deploymentId));
 			throw new DeploymentNotFoundException(String.format("No deployment with ID %s", deploymentId));

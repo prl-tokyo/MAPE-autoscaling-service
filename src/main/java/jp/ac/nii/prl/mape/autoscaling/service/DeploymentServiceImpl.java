@@ -28,28 +28,28 @@ public class DeploymentServiceImpl implements DeploymentService {
 	private AnalysisProperties analysisProperties;
 	
 	@Override
-	public Deployment save(Deployment deployment) {
+	public Deployment save(final Deployment deployment) {
 		assert(deployment != null);
 		
 		return deploymentRepository.save(deployment);
 	}
 	
 	@Override
-	public Optional<Deployment> findById(Long deploymentId) {
+	public Optional<Deployment> findById(final Long deploymentId) {
 		assert(deploymentId != null);
 		
 		return deploymentRepository.findById(deploymentId);
 	}
 
 	@Override
-	public Adaptation analyse(Deployment deployment) {
+	public Adaptation analyse(final Deployment deployment) {
 		logger.debug("Starting analysis");
 		
 		double load = deployment.getAverageLoad();
 		
 		logger.debug(String.format("Average Load per CPU is %f", load));
 		
-		Adaptation adaptation = new Adaptation();
+		final Adaptation adaptation = new Adaptation();
 		if (load >= analysisProperties.getMaxThreshold()) {
 			
 			logger.debug("Average load per CPU is over the max threshold, scaling up required");
@@ -77,7 +77,7 @@ public class DeploymentServiceImpl implements DeploymentService {
 	}
 
 	@Override
-	public DeploymentDTO analyse(DeploymentDTO deployment) {
+	public DeploymentDTO analyse(final DeploymentDTO deployment) {
 		double avg = getWeightedAvgCpuUsage(deployment);
 		if (avg > 80) {
 			InstanceDTO newInst = new InstanceDTO();
@@ -90,7 +90,7 @@ public class DeploymentServiceImpl implements DeploymentService {
 		return deployment;
 	}
 	
-	private double getWeightedAvgCpuUsage(DeploymentDTO deployment) {
+	private double getWeightedAvgCpuUsage(final DeploymentDTO deployment) {
 		double total = 0F;
 		int cpus = 0;
 		for (InstanceDTO instance:deployment.getInstances()) {
@@ -100,7 +100,7 @@ public class DeploymentServiceImpl implements DeploymentService {
 		return total / cpus;
 	}
 	
-	private int getCpuCount(DeploymentDTO deployment, String type) {
+	private int getCpuCount(final DeploymentDTO deployment, final String type) {
 		for (InstanceTypeDTO instType:deployment.getInstanceTypes()) {
 			if (instType.getTypeID().equals(type))
 				return instType.getTypeCPUs();

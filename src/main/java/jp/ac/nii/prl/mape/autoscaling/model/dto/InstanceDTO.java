@@ -27,15 +27,15 @@ public class InstanceDTO {
 		return instType;
 	}
 
-	public void setInstID(String instID) {
+	public void setInstID(final String instID) {
 		this.instID = instID;
 	}
 
-	public void setInstLoad(Double instLoad) {
+	public void setInstLoad(final Double instLoad) {
 		this.instLoad = instLoad;
 	}
 
-	public void setInstType(String instType) {
+	public void setInstType(final String instType) {
 		this.instType = instType;
 	}
 

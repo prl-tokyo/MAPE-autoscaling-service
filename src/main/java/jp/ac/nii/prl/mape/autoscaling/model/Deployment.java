@@ -49,19 +49,19 @@ public class Deployment {
 		return instanceTypes;
 	}
 
-	public void setAdaptation(Adaptation adaptation) {
+	public void setAdaptation(final Adaptation adaptation) {
 		this.adaptation = adaptation;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
-	public void setInstances(List<Instance> instances) {
+	public void setInstances(final List<Instance> instances) {
 		this.instances = instances;
 	}
 
-	public void setInstanceTypes(List<InstanceType> instanceTypes) {
+	public void setInstanceTypes(final List<InstanceType> instanceTypes) {
 		this.instanceTypes = instanceTypes;
 	}
 

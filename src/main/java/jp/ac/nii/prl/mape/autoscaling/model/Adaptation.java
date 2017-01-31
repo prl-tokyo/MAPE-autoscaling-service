@@ -43,19 +43,19 @@ public class Adaptation {
 		return up;
 	}
 	
-	public void setAdapt(boolean adapt) {
+	public void setAdapt(final boolean adapt) {
 		this.adapt = adapt;
 	}
 	
-	public void setCpuCount(int cpuCount) {
+	public void setCpuCount(final int cpuCount) {
 		this.cpuCount = cpuCount;
 	}
 	
-	public void setDeployment(Deployment deployment) {
+	public void setDeployment(final Deployment deployment) {
 		this.deployment = deployment;
 	}
 	
-	public void setUp(boolean up) {
+	public void setUp(final boolean up) {
 		this.up = up;
 	}
 	

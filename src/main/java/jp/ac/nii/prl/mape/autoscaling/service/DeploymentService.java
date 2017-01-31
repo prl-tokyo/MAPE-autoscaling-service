@@ -8,12 +8,12 @@ import jp.ac.nii.prl.mape.autoscaling.model.dto.DeploymentDTO;
 
 public interface DeploymentService {
 	
-	Deployment save(Deployment deployment);
+	Deployment save(final Deployment deployment);
 	
-	Optional<Deployment> findById(Long deploymentId);
+	Optional<Deployment> findById(final Long deploymentId);
 	
-	Adaptation analyse(Deployment deployment);
+	Adaptation analyse(final Deployment deployment);
 	
-	DeploymentDTO analyse(DeploymentDTO deployment);
+	DeploymentDTO analyse(final DeploymentDTO deployment);
 
 }

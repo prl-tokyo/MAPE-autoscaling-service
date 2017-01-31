@@ -6,12 +6,12 @@ import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceTypeDTO;
 
 public class InstanceTypeFactory {
 
-	public static InstanceType createInstanceType(InstanceTypeDTO dto, 
-			Deployment deployment, 
-			List<Instance> instances) {
+	public static InstanceType createInstanceType(final InstanceTypeDTO dto,
+			final Deployment deployment,
+			final List<Instance> instances) {
 		assert(dto != null && deployment != null && instances != null);
 		
-		InstanceType instanceType = new InstanceType();
+		final InstanceType instanceType = new InstanceType();
 		
 		instanceType.setTypeCost(dto.getTypeCost());
 		instanceType.setTypeCPUs(dto.getTypeCPUs());
@@ -23,10 +23,10 @@ public class InstanceTypeFactory {
 		return instanceType;
 	}
 	
-	public static InstanceTypeDTO createDTO(InstanceType instanceType) {
+	public static InstanceTypeDTO createDTO(final InstanceType instanceType) {
 		assert(instanceType != null);
 		
-		InstanceTypeDTO dto = new InstanceTypeDTO();
+		final InstanceTypeDTO dto = new InstanceTypeDTO();
 		
 		dto.setTypeCost(instanceType.getTypeCost());
 		dto.setTypeCPUs(instanceType.getTypeCPUs());

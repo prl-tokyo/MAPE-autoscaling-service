@@ -6,7 +6,7 @@ import jp.ac.nii.prl.mape.autoscaling.model.Deployment;
 public class PlanningServiceImpl implements PlanningService {
 
 	@Override
-	public Deployment plan(Deployment deployment, Adaptation adaptation) {
+	public Deployment plan(final Deployment deployment, final Adaptation adaptation) {
 		assert(deployment != null && adaptation != null);
 		
 		if (!adaptation.isAdapt())

@@ -47,7 +47,7 @@ public class Instance {
 		return instLoad;
 	}
 
-	public void setDeployment(Deployment deployment) {
+	public void setDeployment(final Deployment deployment) {
 		this.deployment = deployment;
 	}
 
@@ -55,15 +55,15 @@ public class Instance {
 		this.id = id;
 	}
 
-	public void setInstanceType(InstanceType instanceType) {
+	public void setInstanceType(final InstanceType instanceType) {
 		this.instanceType = instanceType;
 	}
 
-	public void setInstID(String instID) {
+	public void setInstID(final String instID) {
 		this.instID = instID;
 	}
 
-	public void setInstLoad(Double instLoad) {
+	public void setInstLoad(final Double instLoad) {
 		this.instLoad = instLoad;
 	}
 

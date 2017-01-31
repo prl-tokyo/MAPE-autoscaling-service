@@ -65,7 +65,7 @@ public class InstanceType {
 		return typeRAM;
 	}
 
-	public void setDeployment(Deployment deployment) {
+	public void setDeployment(final Deployment deployment) {
 		this.deployment = deployment;
 	}
 
@@ -73,23 +73,23 @@ public class InstanceType {
 		this.id = id;
 	}
 
-	public void setInstances(List<Instance> instances) {
+	public void setInstances(final List<Instance> instances) {
 		this.instances = instances;
 	}
 
-	public void setTypeCost(Double typeCost) {
+	public void setTypeCost(final Double typeCost) {
 		this.typeCost = typeCost;
 	}
 
-	public void setTypeCPUs(Integer typeCPUs) {
+	public void setTypeCPUs(final Integer typeCPUs) {
 		this.typeCPUs = typeCPUs;
 	}
 
-	public void setTypeID(String typeID) {
+	public void setTypeID(final String typeID) {
 		this.typeID = typeID;
 	}
 
-	public void setTypeRAM(Double typeRAM) {
+	public void setTypeRAM(final Double typeRAM) {
 		this.typeRAM = typeRAM;
 	}
 

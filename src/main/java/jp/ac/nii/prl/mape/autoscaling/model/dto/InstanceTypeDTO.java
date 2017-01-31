@@ -35,19 +35,19 @@ public class InstanceTypeDTO {
 		return typeRAM;
 	}
 
-	public void setTypeCost(Double typeCost) {
+	public void setTypeCost(final Double typeCost) {
 		this.typeCost = typeCost;
 	}
 
-	public void setTypeCPUs(Integer typeCPUs) {
+	public void setTypeCPUs(final Integer typeCPUs) {
 		this.typeCPUs = typeCPUs;
 	}
 
-	public void setTypeID(String typeID) {
+	public void setTypeID(final String typeID) {
 		this.typeID = typeID;
 	}
 
-	public void setTypeRAM(Double typeRAM) {
+	public void setTypeRAM(final Double typeRAM) {
 		this.typeRAM = typeRAM;
 	}
 }
