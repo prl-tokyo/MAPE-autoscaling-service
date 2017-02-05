@@ -51,7 +51,7 @@ public class Instance {
 		this.deployment = deployment;
 	}
 
-	public void setId(long id) {
+	public void setId(final long id) {
 		this.id = id;
 	}
 

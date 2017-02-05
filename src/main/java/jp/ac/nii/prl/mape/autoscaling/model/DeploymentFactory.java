@@ -11,7 +11,7 @@ import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceTypeDTO;
 
 public class DeploymentFactory {
 	
-	public static Deployment createDeployment(DeploymentDTO dto) {
+	public static Deployment createDeployment(final DeploymentDTO dto) {
 		assert(dto != null);
 		
 		final Deployment deployment = new Deployment();
@@ -20,10 +20,10 @@ public class DeploymentFactory {
 		final Map<String, List<Instance>> instByType = new HashMap<>();
 		for (InstanceDTO iDto:dto.getInstances()) {
 			final Instance instance = InstanceFactory.createInstance(iDto, deployment);
-			if (instByType.containsKey(iDto.getInstType()))
+			if (instByType.containsKey(iDto.getInstType())) {
 				instByType.get(iDto.getInstType()).add(instance);
-			else {
-				List<Instance> list = new ArrayList<>();
+			} else {
+				final List<Instance> list = new ArrayList<>();
 				list.add(instance);
 				instByType.put(iDto.getInstType(), list);
 			}
@@ -33,8 +33,8 @@ public class DeploymentFactory {
 		
 		final List<InstanceType> instanceTypes = new ArrayList<>();
 		for(InstanceTypeDTO itDto:dto.getInstanceTypes()) {
-			List<Instance> linkedInstances = instByType.get(itDto.getTypeID());
-			InstanceType instanceType = InstanceTypeFactory.createInstanceType(itDto, 
+			final List<Instance> linkedInstances = instByType.get(itDto.getTypeID());
+			final InstanceType instanceType = InstanceTypeFactory.createInstanceType(itDto,
 					deployment, linkedInstances);
 			instanceTypes.add(instanceType);
 			for (Instance linkedInstance:linkedInstances) {
@@ -52,13 +52,15 @@ public class DeploymentFactory {
 		final DeploymentDTO dto = new DeploymentDTO();
 		
 		final List<InstanceDTO> instanceDTOs = new ArrayList<>();
-		for (Instance instance:deployment.getInstances())
+		for (Instance instance:deployment.getInstances()) {
 			instanceDTOs.add(InstanceFactory.createDTO(instance));
+		}
 		dto.setInstances(instanceDTOs);
 		
 		final List<InstanceTypeDTO> instanceTypeDTOs = new ArrayList<>();
-		for (InstanceType instanceType:deployment.getInstanceTypes())
-			instanceTypeDTOs.add(InstanceTypeFactory.createDTO(instanceType));
+		for (InstanceType instanceType:deployment.getInstanceTypes()) {
+            instanceTypeDTOs.add(InstanceTypeFactory.createDTO(instanceType));
+        }
 		dto.setInstanceTypes(instanceTypeDTOs);
 		
 		return dto;

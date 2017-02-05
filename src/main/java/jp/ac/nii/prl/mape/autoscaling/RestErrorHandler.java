@@ -12,7 +12,7 @@ public class RestErrorHandler {
 
 	@ExceptionHandler(DeploymentNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public void handleDeploymentNotFoundException(DeploymentNotFoundException ex) {
+	public void handleDeploymentNotFoundException(final DeploymentNotFoundException ex) {
 		
 	}
 }

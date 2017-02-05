@@ -19,7 +19,7 @@ import jp.ac.nii.prl.mape.autoscaling.repository.DeploymentRepository;
 @Service("deploymentService")
 public class DeploymentServiceImpl implements DeploymentService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(DeploymentServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DeploymentServiceImpl.class);
 
 	@Autowired
 	private DeploymentRepository deploymentRepository;
@@ -43,16 +43,16 @@ public class DeploymentServiceImpl implements DeploymentService {
 
 	@Override
 	public Adaptation analyse(final Deployment deployment) {
-		logger.debug("Starting analysis");
+		LOG.debug("Starting analysis");
 		
-		double load = deployment.getAverageLoad();
+		final double load = deployment.getAverageLoad();
 		
-		logger.debug(String.format("Average Load per CPU is %f", load));
+		LOG.debug(String.format("Average Load per CPU is %f", load));
 		
 		final Adaptation adaptation = new Adaptation();
 		if (load >= analysisProperties.getMaxThreshold()) {
 			
-			logger.debug("Average load per CPU is over the max threshold, scaling up required");
+			LOG.debug("Average load per CPU is over the max threshold, scaling up required");
 			
 			adaptation.setAdapt(true);
 			adaptation.setUp(true);
@@ -62,14 +62,14 @@ public class DeploymentServiceImpl implements DeploymentService {
 					.intValue());
 		} else if ((load <= analysisProperties.getMinThreshold()) && (deployment.getInstances().size() > 2)) {
 			
-			logger.debug("Average load per CPU is under the min threshold, scaling down required");
+			LOG.debug("Average load per CPU is under the min threshold, scaling down required");
 			
 			adaptation.setAdapt(true);
 			adaptation.setUp(false);
 			adaptation.setCpuCount(1);
 		} else {
 			
-			logger.debug("No adaptation necessary");
+			LOG.debug("No adaptation necessary");
 			
 			adaptation.setAdapt(false);
 		}
@@ -78,9 +78,9 @@ public class DeploymentServiceImpl implements DeploymentService {
 
 	@Override
 	public DeploymentDTO analyse(final DeploymentDTO deployment) {
-		double avg = getWeightedAvgCpuUsage(deployment);
+		final double avg = getWeightedAvgCpuUsage(deployment);
 		if (avg > 80) {
-			InstanceDTO newInst = new InstanceDTO();
+			final InstanceDTO newInst = new InstanceDTO();
 			newInst.setInstID(UUID.randomUUID().toString());
 			newInst.setInstLoad(0.0);
 			newInst.setInstType(deployment.getInstances().get(0).getInstType());
@@ -102,8 +102,9 @@ public class DeploymentServiceImpl implements DeploymentService {
 	
 	private int getCpuCount(final DeploymentDTO deployment, final String type) {
 		for (InstanceTypeDTO instType:deployment.getInstanceTypes()) {
-			if (instType.getTypeID().equals(type))
+			if (instType.getTypeID().equals(type)) {
 				return instType.getTypeCPUs();
+			}
 		}
 		return 0;
 	}

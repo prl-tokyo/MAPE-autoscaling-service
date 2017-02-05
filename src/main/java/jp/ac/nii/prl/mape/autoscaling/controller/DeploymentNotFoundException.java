@@ -9,7 +9,7 @@ public class DeploymentNotFoundException extends RestClientException {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public DeploymentNotFoundException(String msg) {
+	public DeploymentNotFoundException(final String msg) {
 		super(msg);
 	}
 
