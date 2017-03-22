@@ -1,11 +1,6 @@
 package jp.ac.nii.prl.mape.autoscaling.controller;
 
-import static org.junit.Assert.*;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-
+import jp.ac.nii.prl.mape.autoscaling.MapeAutoscalingServiceApplication;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +16,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import jp.ac.nii.prl.mape.autoscaling.MapeAutoscalingServiceApplication;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,7 +64,7 @@ public class AutoscalingControllerTest {
 		fail("Not yet implemented");
 	}
 	
-	protected String json(Object o) throws IOException {
+	protected String json(final Object o) throws IOException {
         MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
         this.mappingJackson2HttpMessageConverter.write(
                 o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);

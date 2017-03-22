@@ -1,13 +1,13 @@
 package jp.ac.nii.prl.mape.autoscaling.model;
 
+import jp.ac.nii.prl.mape.autoscaling.model.dto.DeploymentDTO;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceDTO;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceTypeDTO;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import jp.ac.nii.prl.mape.autoscaling.model.dto.DeploymentDTO;
-import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceDTO;
-import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceTypeDTO;
 
 public class DeploymentFactory {
 	

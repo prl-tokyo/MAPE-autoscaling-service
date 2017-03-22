@@ -1,14 +1,13 @@
 package jp.ac.nii.prl.mape.autoscaling.model;
 
-import static org.junit.Assert.*;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceDTO;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceDTO;
+import static org.junit.Assert.assertEquals;
 
 public class InstanceFactoryTest {
 
@@ -18,14 +17,14 @@ public class InstanceFactoryTest {
 
 	@Test
 	public void testInstanceFromDTO() {
-		InstanceDTO dto = new InstanceDTO();
+		final InstanceDTO dto = new InstanceDTO();
 		dto.setInstID("inst-1");
 		dto.setInstLoad(3.0);
 		dto.setInstType("t2.micro");
 		
-		Deployment deployment = new Deployment();
+		final Deployment deployment = new Deployment();
 		
-		Instance inst = InstanceFactory.createInstance(dto, deployment);
+		final Instance inst = InstanceFactory.createInstance(dto, deployment);
 		
 		assertEquals("inst-1", inst.getInstID());
 		assertEquals(3.0, inst.getInstLoad(), 0);
@@ -33,19 +32,19 @@ public class InstanceFactoryTest {
 	
 	@Test
 	public void testInstanceWithTypeFromDTO() {
-		InstanceDTO dto = new InstanceDTO();
+		final InstanceDTO dto = new InstanceDTO();
 		dto.setInstID("inst-1");
 		dto.setInstLoad(3.0);
 		dto.setInstType("t2.micro");
 		
-		Deployment deployment = new Deployment();
+		final Deployment deployment = new Deployment();
 		InstanceType instType = new InstanceType();
 		instType.setTypeCost(0.01);
 		instType.setTypeCPUs(1);
 		instType.setTypeID("t2.micro");
 		instType.setTypeRAM(2.0);
 		
-		Instance inst = InstanceFactory.createInstance(dto, deployment, instType);
+		final Instance inst = InstanceFactory.createInstance(dto, deployment, instType);
 		
 		assertEquals("inst-1", inst.getInstID());
 		assertEquals(3.0, inst.getInstLoad(), 0);
@@ -55,27 +54,27 @@ public class InstanceFactoryTest {
 	
 	@Test
 	public void testDTOFromInstance() {
-		Deployment deployment = new Deployment();
+		final Deployment deployment = new Deployment();
 		
-		Instance inst = new Instance();
+		final Instance inst = new Instance();
 		inst.setInstID("inst-1");
 		inst.setInstLoad(3.0);
 		inst.setDeployment(deployment);
 		
-		InstanceType instType = new InstanceType();
+		final InstanceType instType = new InstanceType();
 		instType.setTypeCost(0.01);
 		instType.setTypeCPUs(1);
 		instType.setTypeID("t2.micro");
 		instType.setTypeRAM(3.0);
 		
 		inst.setInstanceType(instType);
-		List<Instance> instances = new ArrayList<>();
+		final List<Instance> instances = new ArrayList<>();
 		instances.add(inst);
 		instType.setInstances(instances);
 		
 		deployment.setInstances(instances);
 		
-		InstanceDTO dto = InstanceFactory.createDTO(inst);
+		final InstanceDTO dto = InstanceFactory.createDTO(inst);
 		
 		assertEquals("inst-1", dto.getInstID());
 		assertEquals("t2.micro", dto.getInstType());

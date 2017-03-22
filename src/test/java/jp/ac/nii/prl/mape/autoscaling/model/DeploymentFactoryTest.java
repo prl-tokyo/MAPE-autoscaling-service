@@ -1,16 +1,16 @@
 package jp.ac.nii.prl.mape.autoscaling.model;
 
-import static org.junit.Assert.*;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.DeploymentDTO;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceDTO;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceTypeDTO;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import jp.ac.nii.prl.mape.autoscaling.model.dto.DeploymentDTO;
-import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceDTO;
-import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceTypeDTO;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DeploymentFactoryTest {
 
@@ -20,31 +20,31 @@ public class DeploymentFactoryTest {
 
 	@Test
 	public void testCreateDeploymentFromDTO() {
-		DeploymentDTO ddto = new DeploymentDTO();
+		final DeploymentDTO ddto = new DeploymentDTO();
 		
-		InstanceDTO idto = new InstanceDTO();
+		final InstanceDTO idto = new InstanceDTO();
 		idto.setInstID("inst-1");
 		idto.setInstLoad(3.0);
 		idto.setInstType("t2.micro");
 		
-		InstanceTypeDTO itdto = new InstanceTypeDTO();
+		final InstanceTypeDTO itdto = new InstanceTypeDTO();
 		itdto.setTypeCost(0.01);
 		itdto.setTypeCPUs(1);
 		itdto.setTypeID("t2.micro");
 		itdto.setTypeRAM(1.0);
 		
-		List<InstanceDTO> idtos = new ArrayList<>();
+		final List<InstanceDTO> idtos = new ArrayList<>();
 		idtos.add(idto);
 		
-		List<InstanceTypeDTO> itdtos = new ArrayList<>();
+		final List<InstanceTypeDTO> itdtos = new ArrayList<>();
 		itdtos.add(itdto);
 		
 		ddto.setInstances(idtos);
 		ddto.setInstanceTypes(itdtos);
 		
-		Deployment deployment = DeploymentFactory.createDeployment(ddto);
-		Instance instance = deployment.getInstances().get(0);
-		InstanceType instanceType = deployment.getInstanceTypes().get(0);
+		final Deployment deployment = DeploymentFactory.createDeployment(ddto);
+		final Instance instance = deployment.getInstances().get(0);
+		final InstanceType instanceType = deployment.getInstanceTypes().get(0);
 		
 		assertEquals(deployment, instance.getDeployment());
 		assertEquals(instanceType, instance.getInstanceType());
@@ -61,54 +61,54 @@ public class DeploymentFactoryTest {
 	
 	@Test
 	public void testCreateDeploymentFromDTOMultipleInstances() {
-DeploymentDTO ddto = new DeploymentDTO();
+		final DeploymentDTO ddto = new DeploymentDTO();
 		
-		InstanceDTO idto = new InstanceDTO();
+		final InstanceDTO idto = new InstanceDTO();
 		idto.setInstID("inst-1");
 		idto.setInstLoad(3.0);
 		idto.setInstType("t2.micro");
 		
-		InstanceDTO idto2 = new InstanceDTO();
+		final InstanceDTO idto2 = new InstanceDTO();
 		idto2.setInstID("inst-2");
 		idto2.setInstLoad(4.0);
 		idto2.setInstType("t2.large");
 		
-		InstanceDTO idto3 = new InstanceDTO();
+		final InstanceDTO idto3 = new InstanceDTO();
 		idto3.setInstID("inst-3");
 		idto3.setInstLoad(4.0);
 		idto3.setInstType("t2.large");
 		
-		InstanceDTO idto4 = new InstanceDTO();
+		final InstanceDTO idto4 = new InstanceDTO();
 		idto4.setInstID("inst-4");
 		idto4.setInstLoad(4.0);
 		idto4.setInstType("t2.large");
 		
-		InstanceTypeDTO itdto = new InstanceTypeDTO();
+		final InstanceTypeDTO itdto = new InstanceTypeDTO();
 		itdto.setTypeCost(0.01);
 		itdto.setTypeCPUs(1);
 		itdto.setTypeID("t2.micro");
 		itdto.setTypeRAM(1.0);
 		
-		InstanceTypeDTO itdto2 = new InstanceTypeDTO();
+		final InstanceTypeDTO itdto2 = new InstanceTypeDTO();
 		itdto2.setTypeCost(0.04);
 		itdto2.setTypeCPUs(2);
 		itdto2.setTypeID("t2.large");
 		itdto2.setTypeRAM(2.0);
 		
-		List<InstanceDTO> idtos = new ArrayList<>();
+		final List<InstanceDTO> idtos = new ArrayList<>();
 		idtos.add(idto);
 		idtos.add(idto2);
 		idtos.add(idto3);
 		idtos.add(idto4);
 		
-		List<InstanceTypeDTO> itdtos = new ArrayList<>();
+		final List<InstanceTypeDTO> itdtos = new ArrayList<>();
 		itdtos.add(itdto);
 		itdtos.add(itdto2);
 		
 		ddto.setInstances(idtos);
 		ddto.setInstanceTypes(itdtos);
 		
-		Deployment deployment = DeploymentFactory.createDeployment(ddto);
+		final Deployment deployment = DeploymentFactory.createDeployment(ddto);
 		Instance instance = deployment.getInstances().get(0);
 		InstanceType instanceType = deployment.getInstanceTypes().get(0);
 		
@@ -159,53 +159,53 @@ DeploymentDTO ddto = new DeploymentDTO();
 	
 	@Test
 	public void testCreateDTOFromDeployment() {
-		Deployment deployment = new Deployment();
-		List<Instance> instances = new ArrayList<Instance>();
-		List<InstanceType> instanceTypes = new ArrayList<InstanceType>();
+		final Deployment deployment = new Deployment();
+		final List<Instance> instances = new ArrayList<>();
+		final List<InstanceType> instanceTypes = new ArrayList<>();
 		
-		Instance inst1 = new Instance();
+		final Instance inst1 = new Instance();
 		inst1.setDeployment(deployment);
 		inst1.setInstID("inst-1");
 		inst1.setInstLoad(3.0);
 		instances.add(inst1);
 		
-		Instance inst2 = new Instance();
+		final Instance inst2 = new Instance();
 		inst2.setDeployment(deployment);
 		inst2.setInstID("inst-2");
 		inst2.setInstLoad(3.0);
 		instances.add(inst2);
 		
-		Instance inst3 = new Instance();
+		final Instance inst3 = new Instance();
 		inst3.setDeployment(deployment);
 		inst3.setInstID("inst-3");
 		inst3.setInstLoad(3.0);
 		instances.add(inst3);
 		
-		Instance inst4 = new Instance();
+		final Instance inst4 = new Instance();
 		inst4.setDeployment(deployment);
 		inst4.setInstID("inst-4");
 		inst4.setInstLoad(3.0);
 		instances.add(inst4);
 		
-		InstanceType instType1 = new InstanceType();
+		final InstanceType instType1 = new InstanceType();
 		instType1.setDeployment(deployment);
 		instType1.setTypeCost(0.01);
 		instType1.setTypeCPUs(1);
 		instType1.setTypeID("t2.micro");
 		instType1.setTypeRAM(1.0);
-		List<Instance> instType1Instances = new ArrayList<>();
+		final List<Instance> instType1Instances = new ArrayList<>();
 		instType1Instances.add(inst1);
 		inst1.setInstanceType(instType1);
 		instType1.setInstances(instType1Instances);
 		instanceTypes.add(instType1);
 		
-		InstanceType instType2 = new InstanceType();
+		final InstanceType instType2 = new InstanceType();
 		instType2.setDeployment(deployment);
 		instType2.setTypeCost(0.04);
 		instType2.setTypeCPUs(2);
 		instType2.setTypeID("t2.large");
 		instType2.setTypeRAM(2.0);
-		List<Instance> instType2Instances = new ArrayList<>();
+		final List<Instance> instType2Instances = new ArrayList<>();
 		instType2Instances.add(inst2);
 		inst2.setInstanceType(instType2);
 		instType2Instances.add(inst3);
@@ -218,7 +218,7 @@ DeploymentDTO ddto = new DeploymentDTO();
 		deployment.setInstances(instances);
 		deployment.setInstanceTypes(instanceTypes);
 		
-		DeploymentDTO dto = DeploymentFactory.createDTO(deployment);
+		final DeploymentDTO dto = DeploymentFactory.createDTO(deployment);
 		
 		assertEquals(4, dto.getInstances().size());
 		assertEquals(2, dto.getInstanceTypes().size());
