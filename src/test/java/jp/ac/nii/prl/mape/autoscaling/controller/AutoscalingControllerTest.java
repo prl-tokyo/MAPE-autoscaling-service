@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(MapeAutoscalingServiceApplication.class)
+@SpringBootTest(classes = MapeAutoscalingServiceApplication.class)
 @WebAppConfiguration
 public class AutoscalingControllerTest {
 	
