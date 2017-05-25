@@ -26,8 +26,6 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.post;
-import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -63,13 +61,15 @@ public class AutoscalingControllerTest {
 
 	@Test
 	public void testCreateDeployment() {
-	    DeploymentDTO deployment = buildEmptyDeploymentDTO();
+	    final DeploymentDTO deployment = buildEmptyDeploymentDTO();
 		given().body(deployment).post("/autoscaling").then().assertThat().statusCode(HttpStatus.SC_CREATED);
 	}
 
 	@Test
     public void testCreateGarbageDeployment() {
-	    given().body("{hello}").post("/autoscaling").then().assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY);
+	    given().body("{hello}")
+                .post("/autoscaling")
+                .then().assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY);
     }
 	
 	protected String json(final Object o) throws IOException {
@@ -80,18 +80,18 @@ public class AutoscalingControllerTest {
     }
 
     private static DeploymentDTO buildEmptyDeploymentDTO() {
-	    InstanceDTO instance = new InstanceDTO();
+	    final InstanceDTO instance = new InstanceDTO();
 	    instance.setInstID("1");
 	    instance.setInstLoad(0.5);
 	    instance.setInstType("t2.micro");
 
-        InstanceTypeDTO instanceType = new InstanceTypeDTO();
+        final InstanceTypeDTO instanceType = new InstanceTypeDTO();
         instanceType.setTypeID("t2.micro");
         instanceType.setTypeCost(0.01);
         instanceType.setTypeCPUs(1);
         instanceType.setTypeRAM(0.5);
 
-	    DeploymentDTO deployment = new DeploymentDTO();
+	    final DeploymentDTO deployment = new DeploymentDTO();
 	    deployment.setInstances(Collections.singletonList(instance));
 	    deployment.setInstanceTypes(Collections.singletonList(instanceType));
 
