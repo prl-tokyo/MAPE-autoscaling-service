@@ -1,6 +1,11 @@
 package jp.ac.nii.prl.mape.autoscaling.controller;
 
+import edu.emory.mathcs.backport.java.util.Collections;
 import jp.ac.nii.prl.mape.autoscaling.MapeAutoscalingServiceApplication;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.DeploymentDTO;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceDTO;
+import jp.ac.nii.prl.mape.autoscaling.model.dto.InstanceTypeDTO;
+import org.apache.commons.httpclient.HttpStatus;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +25,8 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.post;
 import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -56,19 +63,39 @@ public class AutoscalingControllerTest {
 
 	@Test
 	public void testCreateDeployment() {
-		fail("Not yet implemented");
+	    DeploymentDTO deployment = buildEmptyDeploymentDTO();
+		given().body(deployment).post("/autoscaling").then().assertThat().statusCode(HttpStatus.SC_CREATED);
 	}
 
 	@Test
-	public void testGetDeployment() {
-		fail("Not yet implemented");
-	}
+    public void testCreateGarbageDeployment() {
+	    given().body("{hello}").post("/autoscaling").then().assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY);
+    }
 	
 	protected String json(final Object o) throws IOException {
         MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
         this.mappingJackson2HttpMessageConverter.write(
                 o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
         return mockHttpOutputMessage.getBodyAsString();
+    }
+
+    private static DeploymentDTO buildEmptyDeploymentDTO() {
+	    InstanceDTO instance = new InstanceDTO();
+	    instance.setInstID("1");
+	    instance.setInstLoad(0.5);
+	    instance.setInstType("t2.micro");
+
+        InstanceTypeDTO instanceType = new InstanceTypeDTO();
+        instanceType.setTypeID("t2.micro");
+        instanceType.setTypeCost(0.01);
+        instanceType.setTypeCPUs(1);
+        instanceType.setTypeRAM(0.5);
+
+	    DeploymentDTO deployment = new DeploymentDTO();
+	    deployment.setInstances(Collections.singletonList(instance));
+	    deployment.setInstanceTypes(Collections.singletonList(instanceType));
+
+	    return deployment;
     }
 
 }
